@@ -1,6 +1,7 @@
 const int intPin = A0;
 const int LED = 11;
 int v = 0;
+int prev_v = 0;
 int data = -1;
 
 void setup() {
@@ -11,14 +12,16 @@ void setup() {
 }
 
 void loop() {
+  prev_v = v;
   // put your main code here, to run repeatedly:
   v = analogRead(intPin);
+  //  Serial.println(v);
 
   delay(100);
 
   data = Serial.read();
   data -= 0x30;
-  Serial.println(data);
+  // Serial.println(data);
   
   if(data == 1)
   {
@@ -29,5 +32,13 @@ void loop() {
     digitalWrite(LED, LOW);
   }
 
-  Serial.println("");
+  if(v - prev_v > 10)
+  {
+    Serial.println("On");
+  }
+  else if(v - prev_v < -10)
+  {
+    Serial.println("Off");
+  }
+
 }
