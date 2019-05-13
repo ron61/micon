@@ -1,9 +1,31 @@
-void setup() {
-  // put your setup code here, to run once:
+const int intPin = A0;
+const int LED = 11;
+int v = 0;
+int prev_v  = 0;
+int count = 0;
+int blightness = 0;
 
+void setup() {
+  pinMode(intPin, INPUT);  // デジタルピン2を入力に設定
+  pinMode(LED, OUTPUT);
+  Serial.begin(9600);  
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  prev_v = v;
+  v = analogRead(intPin);
 
+  if (abs(prev_v - v) > 100)
+  {
+    count ++;
+    delay(100);
+  }
+  
+  blightness = (count % 9) * 32 - 1;
+
+  analogWrite(LED, blightness);
+
+  Serial.println(count);
+  Serial.println(blightness);
+  delay(50);
 }
