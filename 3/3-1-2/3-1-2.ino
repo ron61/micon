@@ -5,7 +5,7 @@ int val = 0;
 int prev_val = 0;
 int state;
 int isCounting;
-int t,t_start,t_end;
+int t,t_start,now;
 
 
 void setup() {
@@ -22,20 +22,25 @@ void loop() {
   val = digitalRead(BUTTON);
 
 
-  if(state == 0 && val == 1 && prev_val == 0)
+  if(isCounting == 0 && val == 1 && prev_val == 0)
   {
     t_start = millis();
+    isCounting = 1;
+    digitalWrite(led,LOW);
   }
-  else if(state == 0 && val == 1 && prev_val == 1)
+  else if(isCounting == 1 && val == 1 && prev_val == 0)
   {
     t = millis() - t_start;
-    Serial.println(t);
+    if(abs(t-5000) < 1000) digitalWrite(led,HIGH);
+    isCounting = 0;
   }
-  else if(val == 0 && prev_val == 1)
-  {
-    state = 1;
-  }
+
+  now = millis() - t_start;
+  Serial.println(now);
+  // Serial.println(isCounting);
   
+
   prev_val = val;
+  delay(50);
 
 }
