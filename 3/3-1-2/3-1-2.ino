@@ -31,7 +31,7 @@ void loop() {
   else if(isCounting == 1 && val == 1 && prev_val == 0)
   {
     t = millis() - t_start;
-    if(abs(t-5000) < 1000) digitalWrite(led,HIGH);
+    if(abs(t - 5000) < 1000) digitalWrite(led,HIGH);
     isCounting = 0;
   }
 
