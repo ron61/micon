@@ -43,6 +43,5 @@ void loop() {
   }
 
   prev_val = val;
-  delay(50);
 
 }
