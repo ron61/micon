@@ -15,21 +15,17 @@ void setup(){
   frameRate(50000);
   centx = width / 2;
   centy = height / 2;
-
   drawSpiral();
 }
 
 void draw(){
-  
+  background(200);
   if(count == 10) {
     drawSpiral();
   }
   else  {
-
-    radius = 27 * count;
-
-    for(ang = 360 * count;ang >= 0;ang -= 4){
-
+    radius = 270;  
+    for(ang = 360*10;ang >= 250;ang -=4){
       radius -= 0.3;
       float rad = radians(ang);
       x = centx + (radius * cos(rad));
@@ -37,13 +33,12 @@ void draw(){
       
       if(lastx > -999){
         stroke(#90A9FF);
-        if(ang > 360 * (count-1)) noFill();
+        if(ang >= 360 * count && ang <= 360 * (count + 1)) fill(200);
         else fill(255);
-        arc(centx,centy,radius,radius,rad,rad-0.1);
+        arc(centx,centy,radius,radius,rad-0.1,rad);
       }
-      
       lastx = x;
-      lasty = y;
+      lasty = y; 
     }
   }
 }
@@ -76,8 +71,9 @@ void keyReleased() {
 
 
 void drawSpiral(){
-  for(ang = 0;ang <= 360 * 10;ang +=4){
-    radius += 0.3;
+  radius = 270;  
+  for(ang = 360*10;ang >= 250;ang -=4){
+    radius -= 0.3;
     float rad = radians(ang);
     x = centx + (radius * cos(rad));
     y = centy + (radius * sin(rad));
@@ -85,16 +81,11 @@ void drawSpiral(){
     if(lastx > -999){
       stroke(#90A9FF);
       fill(255);
-      arc(centx,centy,radius,radius,rad,rad+0.1);
-    }
-    
-    for(float x = radius;x > 50;x -= 27){
-      noFill();
-      stroke(#90A9FF);
-      arc(centx,centy,x-27,x-27,rad,rad+0.1);
+      arc(centx,centy,radius,radius,rad-0.1,rad);
     }
     
     lastx = x;
     lasty = y;
+    
   }
 }
