@@ -4,8 +4,6 @@ float x,y;
 float lastx = -999;
 float lasty = -999;
 int ang = 0;
-int count = 10;
-boolean zero,one,two,three,four,five,six,seven,eight,nine = false;
 
 void setup(){
   size(500,500);
@@ -16,67 +14,11 @@ void setup(){
   centx = width / 2;
   centy = height / 2;
 
-  drawSpiral();
 }
 
 void draw(){
-  
-  if(count == 10) {
-    drawSpiral();
-  }
-  else  {
-
-    radius = 27 * count;
-
-    for(ang = 360 * count;ang >= 0;ang -= 4){
-
-      radius -= 0.3;
-      float rad = radians(ang);
-      x = centx + (radius * cos(rad));
-      y = centy + (radius * sin(rad));
-      
-      if(lastx > -999){
-        stroke(#90A9FF);
-        if(ang > 360 * (count-1)) noFill();
-        else fill(255);
-        arc(centx,centy,radius,radius,rad,rad-0.1);
-      }
-      
-      lastx = x;
-      lasty = y;
-    }
-  }
-}
-
-void keyPressed() {
-  if(key == '0') count = 0;
-  if(key == '1') count = 1;
-  if(key == '2') count = 2;
-  if(key == '3') count = 3;
-  if(key == '4') count = 4;
-  if(key == '5') count = 5;
-  if(key == '6') count = 6;
-  if(key == '7') count = 7;
-  if(key == '8') count = 8;
-  if(key == '9') count = 9;
-}
-
-void keyReleased() {
-  if(key == '0') count = 10;
-  if(key == '1') count = 10;
-  if(key == '2') count = 10;
-  if(key == '3') count = 10;
-  if(key == '4') count = 10;
-  if(key == '5') count = 10;
-  if(key == '6') count = 10;
-  if(key == '7') count = 10;
-  if(key == '8') count = 10;
-  if(key == '9') count = 10;
-}
-
-
-void drawSpiral(){
-  for(ang = 0;ang <= 360 * 10;ang +=4){
+  if(ang <= 3600){
+    ang +=4;
     radius += 0.3;
     float rad = radians(ang);
     x = centx + (radius * cos(rad));
@@ -85,16 +27,17 @@ void drawSpiral(){
     if(lastx > -999){
       stroke(#90A9FF);
       fill(255);
-      arc(centx,centy,radius,radius,rad,rad+0.1);
+      arc(centx,centy,radius,radius,rad-0.1,rad);
     }
-    
-    for(float x = radius;x > 50;x -= 27){
-      noFill();
+
+    for(float r = radius;r > 27;r -= 27) {
       stroke(#90A9FF);
-      arc(centx,centy,x-27,x-27,rad,rad+0.1);
+      fill(255);
+      arc(centx,centy,r,r,rad-0.1,rad);
     }
     
     lastx = x;
     lasty = y;
+    
   }
 }
